@@ -40,7 +40,7 @@ api_channel_list
   channel_t *ch;
   htsmsg_t *l;
   int cfg = api_channel_is_all(perm, args);
-  char buf[128], ubuf[UUID_HEX_SIZE];
+  char buf[128], buf1[128], ubuf[UUID_HEX_SIZE];
   const char *name;
 
   l = htsmsg_create_list();
@@ -48,10 +48,10 @@ api_channel_list
   CHANNEL_FOREACH(ch) {
     if (!cfg && !channel_access(ch, perm, 0)) continue;
     if (!ch->ch_enabled) {
-      snprintf(buf, sizeof(buf), "{%s}", channel_get_name(ch));
-      name =buf;
+      snprintf(buf, sizeof(buf), "{%s}", channel_get_ename(ch, buf1, sizeof(buf1)));
+      name = buf;
     } else {
-      name = channel_get_name(ch);
+      name = channel_get_ename(ch, buf1, sizeof(buf1));
     }
     htsmsg_add_msg(l, NULL, htsmsg_create_key_val(idnode_uuid_as_str(&ch->ch_id, ubuf), name));
   }

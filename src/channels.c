@@ -684,6 +684,34 @@ channel_get_name ( channel_t *ch )
   return blank;
 }
 
+char *
+channel_get_ename
+  ( channel_t *ch, char *dst, size_t dstlen )
+{
+  size_t l = 0;
+  int64_t number;
+  const char *s;
+  dst[0] = '\0';
+  s = channel_get_name(ch);
+  if (s)
+    tvh_strlcatf(dst, dstlen, l, "%s", s);
+
+  number = channel_get_number(ch);
+  if (number > 0) {
+    if (number % CHANNEL_SPLIT) {
+      tvh_strlcatf(dst, dstlen, l, "%s (%u.%u)",
+           l > 0 ? " " : "",
+           channel_get_major(number),
+           channel_get_minor(number));
+    } else {
+      tvh_strlcatf(dst, dstlen, l, "%s (%u)",
+           l > 0 ? " " : "",
+	   channel_get_major(number));
+    }
+  }
+  return dst;
+}
+
 int
 channel_set_name ( channel_t *ch, const char *name )
 {

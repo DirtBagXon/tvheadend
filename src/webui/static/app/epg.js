@@ -144,6 +144,11 @@ tvheadend.epgDetails = function(event) {
       });
       content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Content Type') + ':</span><span class="x-epg-genre">' + genre.join(', ') + '</span></div>';
     }
+    if (event.channelName)
+      content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel Name') + ':</span><span class="x-epg-body">' + event.channelName + '</span></div>';
+    if (event.channelNumber)
+      content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel Number') + ':</span><span class="x-epg-body">' + event.channelNumber + '</span></div>';
+
     var tags = [];
     if (event.hd > 1)
       tags.push(_('UHDTV'));
@@ -287,13 +292,13 @@ tvheadend.epgDetails = function(event) {
     win.show();
 
     function searchIMDB() {
-        window.open('http://akas.imdb.com/find?q=' +
+        window.open('https://imdb.com/find?q=' +
                     encodeURIComponent(event.title), '_blank');
     }
 
     function searchTheTVDB(){
-        window.open('http://thetvdb.com/?string='+
-                    encodeURIComponent(event.title)+'&searchseriesid=&tab=listseries&function=Search','_blank');
+        window.open('https://thetvdb.com/search?query='+
+                    encodeURIComponent(event.title)+'&l=en','_blank');
     }
 
     function playProgram() {
@@ -953,17 +958,6 @@ tvheadend.epg = function() {
             tooltip: _('Reset all filters (show all)'),
             handler: epgQueryClear
         },
-        '->',
-        {
-            text: _('Watch TV'),
-            iconCls: 'watchTv',
-            tooltip: _('Watch live TV in a new browser window.'),
-            handler: function() {
-                new tvheadend.VideoPlayer();
-            }
-        },
-        '-',
-        tvheadend.autorecButton,
         '-',
         {
             text: _('Help'),
