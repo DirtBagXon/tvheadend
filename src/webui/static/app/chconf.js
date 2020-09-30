@@ -6,13 +6,18 @@ insertChannelTagsClearOption = function( scope, records, options ){
     scope.insert(0,new placeholder({key: '-1', val: _('(Clear filter)')}));
 };
 
-tvheadend.channelTags = tvheadend.idnode_get_enum({
-    url: 'api/channeltag/list',
-    event: 'channeltag',
-    listeners: {
-        'load': insertChannelTagsClearOption
-    }
-});
+tvheadend.getChannelTags = function() {
+    if (tvheadend._chtags)
+        return tvheadend._chtags;
+    tvheadend._chtags = tvheadend.idnode_get_enum({
+        url: 'api/channeltag/list',
+        event: 'channeltag',
+        listeners: {
+            'load': insertChannelTagsClearOption
+        }
+    });
+    return tvheadend._chtags;
+}
 
 tvheadend.comet.on('channeltags', function(m) {
     if (m.reload != null)
@@ -27,13 +32,24 @@ insertChannelClearOption = function( scope, records, options ){
     scope.insert(0,new placeholder({key: '-1', val: _('(Clear filter)')}));
 };
 
-tvheadend.channels = tvheadend.idnode_get_enum({
-    url: 'api/channel/list',
-    event: 'channel',
-    listeners: {
-        'load': insertChannelClearOption
-    }
-});
+
+tvheadend.getChannels = function() {
+    if (tvheadend._channels)
+        return tvheadend._channels;
+
+    tvheadend._channels = tvheadend.idnode_get_enum({
+        url: 'api/channel/list',
+        params: {
+            'numbers': tvheadend.chname_num,
+            'sources': tvheadend.chname_src,
+        },
+        event: 'channel',
+        listeners: {
+            'load': insertChannelClearOption
+        }
+    });
+    return tvheadend._channels;
+}
 
 tvheadend.channel_tab = function(panel, index)
 {

@@ -39,6 +39,10 @@ api_channel_list
   channel_t *ch;
   htsmsg_t *l;
   int cfg = api_channel_is_all(perm, args);
+  const int numbers = htsmsg_get_s32_or_default(args, "numbers", 0);
+  const int sources = htsmsg_get_s32_or_default(args, "sources", 0);
+  const int flags = (numbers ? CHANNEL_ENAME_NUMBERS : 0) |
+                    (sources ? CHANNEL_ENAME_SOURCES : 0);
   char buf[128], buf1[128], ubuf[UUID_HEX_SIZE];
   const char *name;
 
@@ -47,10 +51,10 @@ api_channel_list
   CHANNEL_FOREACH(ch) {
     if (!cfg && !channel_access(ch, perm, 0)) continue;
     if (!ch->ch_enabled) {
-      snprintf(buf, sizeof(buf), "{%s}", channel_get_ename(ch, buf1, sizeof(buf1)));
+      snprintf(buf, sizeof(buf), "{%s}", channel_get_ename(ch, buf1, sizeof(buf1), flags));
       name = buf;
     } else {
-      name = channel_get_ename(ch, buf1, sizeof(buf1));
+      name = channel_get_ename(ch, buf1, sizeof(buf1), flags);
     }
     htsmsg_add_msg(l, NULL, htsmsg_create_key_val(idnode_uuid_as_str(&ch->ch_id, ubuf), name));
   }
