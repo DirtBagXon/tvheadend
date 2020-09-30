@@ -68,6 +68,9 @@
  * Extra TAILQ-ops
  */
 
+#define TAILQ_SAFE_ENTRY(elm, field) \
+        ((elm)->field.tqe_next == NULL && (elm)->field.tqe_prev == NULL)
+
 #define TAILQ_INSERT_SORTED(head, elm, field, cmpfunc) do {	\
         if(TAILQ_FIRST(head) == NULL) {				\
            TAILQ_INSERT_HEAD(head, elm, field);			\
