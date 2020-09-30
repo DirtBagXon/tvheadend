@@ -30,6 +30,7 @@ How to build for Linux
 
 First you need to configure:
 
+	$ echo "const char *tvheadend_version = "4.2.8";" > src/version.c
 	$ ./configure --enable-libffmpeg_static --disable-nvenc
 
 If any dependencies are missing the configure script will complain or attempt
