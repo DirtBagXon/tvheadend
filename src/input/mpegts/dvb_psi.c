@@ -718,15 +718,15 @@ dvb_freesat_completed
           continue;
         }
 	/* already assigned? skip it */
-        if (TAILQ_SAFE_ENTRY(fs, region_link))
+        if (!TAILQ_SAFE_ENTRY(fs, region_link))
           continue;
         LIST_FOREACH(fr, &bi->fregions, link)
           if (fr->regionid == fs->regionid)
             break;
         if (!fr) {
           tvhtrace(mt->mt_subsys, "%s: cannot find freesat region id %u", mt->mt_name, fs->regionid);
-	  continue;
-	}
+          continue;
+        }
         TAILQ_INSERT_TAIL(&fr->services, fs, region_link);
       }
   }
