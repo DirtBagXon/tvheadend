@@ -1878,6 +1878,16 @@ service_instance_list_clear(service_instance_list_t *sil)
 }
 
 /*
+ * Get source identificator for service
+ */
+const char *
+service_get_source ( service_t *s )
+{
+  if (s->s_source) return s->s_source(s);
+  return 0;
+}
+
+/*
  * Get name for channel from service
  */
 const char *

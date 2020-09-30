@@ -690,7 +690,8 @@ channel_get_ename
 {
   size_t l = 0;
   int64_t number;
-  const char *s;
+  char buf[128];
+  const char *s, *src;
   dst[0] = '\0';
   s = channel_get_name(ch);
   if (s)
@@ -700,16 +701,34 @@ channel_get_ename
   if (number > 0) {
     if (number % CHANNEL_SPLIT) {
       tvh_strlcatf(dst, dstlen, l, "%s (%u.%u)",
-           l > 0 ? " " : "",
+           l > 0 ? ": " : "",
            channel_get_major(number),
            channel_get_minor(number));
     } else {
       tvh_strlcatf(dst, dstlen, l, "%s (%u)",
-           l > 0 ? " " : "",
+           l > 0 ? ": " : "",
 	   channel_get_major(number));
     }
   }
+
+  src = channel_get_source(ch, buf, sizeof(buf));
+  if (src)
+    tvh_strlcatf(dst, dstlen, l, "%s%s", l > 0 ? " - " : "", src);
+
   return dst;
+}
+
+char *
+channel_get_source ( channel_t *ch, char *dst, size_t dstlen )
+{
+  const char *s;
+  idnode_list_mapping_t *ilm;
+  size_t l = 0;
+  dst[0] = '\0';
+  LIST_FOREACH(ilm, &ch->ch_services, ilm_in2_link)
+    if ((s = service_get_source((service_t *)ilm->ilm_in1)))
+      tvh_strlcatf(dst, dstlen, l, "%s%s", l > 0 ? "," : "", s);
+  return l > 0 ? dst : NULL;
 }
 
 int

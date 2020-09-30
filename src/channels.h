@@ -164,7 +164,8 @@ void channel_tag_unmap(channel_t *ch, void *origin);
 int channel_tag_access(channel_tag_t *ct, struct access *a, int disabled);
 
 const char *channel_get_name ( channel_t *ch );
-char * channel_get_ename ( channel_t *ch, char *dst, size_t dstlen );
+char *channel_get_ename ( channel_t *ch, char *dst, size_t dstlen );
+char *channel_get_source ( channel_t *ch, char *dst, size_t dstlen );
 int channel_set_name ( channel_t *ch, const char *name );
 
 #define CHANNEL_SPLIT ((int64_t)1000000)

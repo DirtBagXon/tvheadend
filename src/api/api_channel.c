@@ -32,7 +32,6 @@ api_channel_is_all(access_t *perm, htsmsg_t *args)
          !access_verify2(perm, ACCESS_ADMIN);
 }
 
-// TODO: this will need converting to an idnode system
 static int
 api_channel_list
   ( access_t *perm, void *opaque, const char *op, htsmsg_t *args, htsmsg_t **resp )
