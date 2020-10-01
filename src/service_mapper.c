@@ -224,13 +224,17 @@ service_mapper_process
 
   /* Find existing channel */
   name = service_get_channel_name(s);
-  if (!bq && conf->merge_same_name && name && *name)
-    chn = channel_find_by_name(name);
-  if (!chn) {
+
+  if (conf->merge_same_name && name && *name) {
+    chn = channel_find_by_name_and_bouquet(name, bq);
+  }
+
+  /* If using bouquets then we want to only merge with channels on the same bouquet */
+  if (!chn || (bq && chn->ch_bouquet != bq)) {
     chn = channel_create(NULL, NULL, NULL);
     chn->ch_bouquet = bq;
   }
-    
+
   /* Map */
   if (chn) {
     const char *prov;

@@ -556,6 +556,24 @@ const idclass_t channel_class = {
 // Note: since channel names are no longer unique this method will simply
 //       return the first entry encountered, so could be somewhat random
 channel_t *
+channel_find_by_name_and_bouquet ( const char *name, const struct bouquet *bq )
+{
+  channel_t *ch;
+  const char *s;
+
+  if (name == NULL)
+    return NULL;
+  CHANNEL_FOREACH(ch) {
+    if (!ch->ch_enabled) continue;
+    s = channel_get_name(ch);
+    if (s == NULL) continue;
+    if (bq && ch->ch_bouquet != bq) continue;
+    if (strcmp(s, name) == 0) break;
+  }
+  return ch;
+}
+
+channel_t *
 channel_find_by_name ( const char *name )
 {
   channel_t *ch;
