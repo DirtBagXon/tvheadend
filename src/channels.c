@@ -773,21 +773,23 @@ channel_set_name ( channel_t *ch, const char *name )
 int64_t
 channel_get_number ( channel_t *ch )
 {
-  int64_t n = 0;
+  int64_t n = 0, v;
   idnode_list_mapping_t *ilm;
   if (ch->ch_number) {
     n = ch->ch_number;
   } else {
     if (ch->ch_bouquet) {
       LIST_FOREACH(ilm, &ch->ch_services, ilm_in2_link) {
-        if ((n = bouquet_get_channel_number(ch->ch_bouquet, (service_t *)ilm->ilm_in1)))
-          break;
+        v = bouquet_get_channel_number(ch->ch_bouquet, (service_t *)ilm->ilm_in1);
+        if (v > 0 && (n == 0 || v < n))
+          n = v;
       }
     }
     if (n == 0) {
       LIST_FOREACH(ilm, &ch->ch_services, ilm_in2_link) {
-        if ((n = service_get_channel_number((service_t *)ilm->ilm_in1)))
-          break;
+        v = service_get_channel_number((service_t *)ilm->ilm_in1);
+        if (v > 0 && (n == 0 || v < n))
+          n = v;
       }
     }
   }
