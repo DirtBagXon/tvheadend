@@ -1,6 +1,15 @@
 Tvheadend
 ========================================
-(c) 2006 - 2017 Tvheadend Foundation CIC
+(c) 2006 - 2020 Tvheadend Foundation CIC
+
+Repo
+----
+
+This is an unofficial repo that holds the stable release of TVHeadend 4.2.8 \
+plus minimal stable fixes, and a few backported features, to keep it functional \
+while development appears to have stalled in the official repo.
+
+Use at your own risk.
 
 What it is
 ----------
@@ -30,7 +39,7 @@ How to build for Linux
 
 First you need to configure:
 
-	$ echo "const char *tvheadend_version = "4.2.8";" > src/version.c
+	$ git tag -a v4.2.8.1-dirtbagxon -m "4.2.8.1-dirtbagxon"
 	$ ./configure --enable-libffmpeg_static --disable-nvenc
 
 If any dependencies are missing the configure script will complain or attempt
