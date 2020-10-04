@@ -2261,23 +2261,6 @@ const idclass_t config_class = {
       .opts   = PO_LORDER | PO_ADVANCED | PO_DOC_NLIST,
       .group  = 3
     },
-       {
-      .type   = PT_BOOL,
-      .id     = "chname_num",
-      .name   = N_("Channel name with numbers"),
-      .desc   = N_("Add channel numbers to the channel name list"),
-      .off    = offsetof(config_t, chname_num),
-      .group  = 2,
-      .def.i  = 1
-    },
-    {
-      .type   = PT_BOOL,
-      .id     = "chname_src",
-      .name   = N_("Channel name with sources"),
-      .desc   = N_("Add sources (like DVB-T string) to the channel name list"),
-      .off    = offsetof(config_t, chname_src),
-      .group  = 2
-    },
     {
       .type   = PT_STR,
       .id     = "language_ui",
@@ -2298,6 +2281,23 @@ const idclass_t config_class = {
       .list   = theme_get_ui_list,
       .off    = offsetof(config_t, theme_ui),
       .opts   = PO_DOC_NLIST,
+      .group  = 3
+    },
+    {
+      .type   = PT_BOOL,
+      .id     = "chname_num",
+      .name   = N_("Channel name with numbers"),
+      .desc   = N_("Add channel numbers to the channel name list"),
+      .off    = offsetof(config_t, chname_num),
+      .group  = 3,
+      .def.i  = 1
+    },
+    {
+      .type   = PT_BOOL,
+      .id     = "chname_src",
+      .name   = N_("Channel name with sources"),
+      .desc   = N_("Add sources (like DVB-T string) to the channel name list"),
+      .off    = offsetof(config_t, chname_src),
       .group  = 3
     },
     {
