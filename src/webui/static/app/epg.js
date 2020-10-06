@@ -103,8 +103,10 @@ tvheadend.epgDetails = function(event) {
     if (chicon)
         content += '<div class="x-epg-left">';
     content += '<div class="x-epg-title">' + event.title;
-    if (event.subtitle)
-        content += "&nbsp;:&nbsp;" + event.subtitle;
+    /*
+     * if (event.subtitle)
+     *   content += "&nbsp;:&nbsp;" + event.subtitle;
+     */
     content += '</div>';
     if (event.episodeOnscreen)
         content += '<div class="x-epg-title">' + event.episodeOnscreen + '</div>';
@@ -197,13 +199,15 @@ tvheadend.epgDetails = function(event) {
         tooltip: _('Search TheTVDB (for title)'),
     }));
 
-    buttons.push(new Ext.Button({
-        disabled: event.start > now || event.stop < now,
-        handler: playProgram,
-        iconCls: 'control_play',
-        tooltip: _('Play this program'),
-        text: _("Play program")
-    }));
+    if (!recording && !scheduled) {
+        buttons.push(new Ext.Button({
+            disabled: event.start > now || event.stop < now,
+            handler: playProgram,
+            iconCls: 'control_play',
+            tooltip: _('Play this program'),
+            text: _("Play program")
+        }));
+    }
 
     if (tvheadend.accessUpdate.dvr) {
 
