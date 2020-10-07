@@ -226,8 +226,8 @@ dvr_get_cutpoint_list (dvr_entry_t *de)
   TAILQ_INIT(cuts);
 
   /* Get base filename */
-  // TODO: harcoded 3 for max extension
-  path = alloca(strlen(filename) + 3);
+  // TODO: harcoded 3 for max extension plus 1 for termination
+  path = alloca(strlen(filename) + 4);
   strcpy(path, filename);
   sptr = strrchr(path, '.');
   if (!sptr) {
