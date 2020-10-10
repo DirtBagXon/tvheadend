@@ -586,6 +586,26 @@ channel_find_by_name ( const char *name )
 }
 
 channel_t *
+channel_find_uniq_name ( const char *name )
+{
+  int n = 0;
+  channel_t *ch;
+  channel_t *uniq = NULL;
+  if (name == NULL)
+    return NULL;
+  CHANNEL_FOREACH(ch)
+    if (ch->ch_enabled && !strcmp(channel_get_name(ch), name)) {
+      uniq = ch;
+      n++;
+      if (n > 1) break;
+    }
+  if (n == 1)
+    return uniq;
+
+  return NULL;
+}
+
+channel_t *
 channel_find_by_id ( uint32_t i )
 {
   channel_t skel;

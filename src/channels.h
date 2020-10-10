@@ -130,6 +130,7 @@ void channel_delete(channel_t *ch, int delconf);
 channel_t *channel_find_by_name_and_bouquet(const char *name, const struct bouquet *bq);
 
 channel_t *channel_find_by_name(const char *name);
+channel_t *channel_find_uniq_name(const char *name);
 #define channel_find_by_uuid(u)\
   (channel_t*)idnode_find(u, &channel_class, NULL)
 

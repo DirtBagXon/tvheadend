@@ -33,6 +33,7 @@
 #include "dvr.h"
 #include "epg.h"
 #include "htsp_server.h"
+#include "config.h"
 
 struct dvr_autorec_entry_queue autorec_entries;
 
@@ -480,7 +481,11 @@ dvr_autorec_entry_class_channel_set(void *o, const void *v)
 {
   dvr_autorec_entry_t *dae = (dvr_autorec_entry_t *)o;
   channel_t *ch = v ? channel_find_by_uuid(v) : NULL;
-  if (ch == NULL) ch = v ? channel_find_by_name(v) : NULL;
+  if (config.autorec_wildcard) {
+    if (ch == NULL) ch = v ? channel_find_uniq_name(v) : NULL;
+  } else {
+    if (ch == NULL) ch = v ? channel_find_by_name(v) : NULL;
+  }
   if (ch == NULL) {
     if (dae->dae_channel) {
       LIST_REMOVE(dae, dae_channel_link);

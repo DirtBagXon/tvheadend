@@ -38,7 +38,7 @@ api_channel_list
 {
   channel_t *ch;
   htsmsg_t *l;
-  int cfg = api_channel_is_all(perm, args);
+  const int cfg = api_channel_is_all(perm, args);
   const int numbers = htsmsg_get_s32_or_default(args, "numbers", 0);
   const int sources = htsmsg_get_s32_or_default(args, "sources", 0);
   const int flags = (numbers ? CHANNEL_ENAME_NUMBERS : 0) |

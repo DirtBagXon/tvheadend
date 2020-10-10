@@ -1680,6 +1680,7 @@ config_boot ( const char *path, gid_t gid, uid_t uid )
   config_scanfile_ok = 0;
   config.theme_ui = strdup("blue");
   config.chname_num = 1;
+  config.autorec_wildcard = 0;
 
   idclass_register(&config_class);
 
@@ -2209,6 +2210,15 @@ const idclass_t config_class = {
                    "It may cause issues with some clients / players."),
       .off    = offsetof(config_t, parser_backlog),
       .opts   = PO_EXPERT,
+      .group  = 1
+    },
+    {
+      .type   = PT_BOOL,
+      .id     = "autorec_wildcard",
+      .name   = N_("Utilise wildcard channel searches"),
+      .desc   = N_("Use a wildcard channel when channel names are duplicated across "
+                   "sources. This may improve series_link and autorec rule searches"),
+      .off    = offsetof(config_t, autorec_wildcard),
       .group  = 1
     },
     {
