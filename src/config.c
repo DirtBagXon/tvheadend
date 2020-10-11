@@ -2215,9 +2215,10 @@ const idclass_t config_class = {
     {
       .type   = PT_BOOL,
       .id     = "autorec_wildcard",
-      .name   = N_("Utilise wildcard channel searches"),
-      .desc   = N_("Use a wildcard channel when channel names are duplicated across "
-                   "sources. This may improve series_link and autorec rule searches"),
+      .name   = N_("Utilise wildcard channel searches (autorec)"),
+      .desc   = N_("Use a wildcard channel when identical channel names are "
+                   "duplicated across different sources. This will improve "
+                   "series_link and autorec rule searches in this scenario."),
       .off    = offsetof(config_t, autorec_wildcard),
       .group  = 1
     },
