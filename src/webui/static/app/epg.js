@@ -1147,7 +1147,7 @@ tvheadend.epg = function() {
         if (params.title) {
 	  conf.title = params.title;
           // Amend comment to include the title to make it easier for
-	  // user to match upcoming/finished recordings to autorecs.
+          // user to match upcoming/finished recordings to autorecs.
           conf.comment = conf.title + _(' - ') + conf.comment;
         }
         if (params.fulltext) conf.fulltext = params.fulltext;
