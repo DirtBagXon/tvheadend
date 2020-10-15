@@ -576,13 +576,7 @@ channel_find_by_name_and_bouquet ( const char *name, const struct bouquet *bq )
 channel_t *
 channel_find_by_name ( const char *name )
 {
-  channel_t *ch;
-  if (name == NULL)
-    return NULL;
-  CHANNEL_FOREACH(ch)
-    if (ch->ch_enabled && !strcmp(channel_get_name(ch), name))
-      break;
-  return ch;
+  return channel_find_by_name_and_bouquet(name, NULL);
 }
 
 channel_t *

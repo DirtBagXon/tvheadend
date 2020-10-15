@@ -24,6 +24,7 @@ tvheadend.dvrDetails = function(uuid) {
         var autorec_caption = params[12].value;
         var timerec_caption = params[13].value;
         var filename = params[14].value;
+        var channelname = params[15].value;
         var content = '';
         var but;
 
@@ -64,10 +65,12 @@ tvheadend.dvrDetails = function(uuid) {
         }
         if (status)
             content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Status') + ':</span><span class="x-epg-body">' + status + '</span></div>';
+        if (channelname)
+            content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel Name') + ':</span><span class="x-epg-body">' + channelname + '</span></div>';
         if (filesize)
             content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('File size') + ':</span><span class="x-epg-body">' + parseInt(filesize / 1000000) + ' MB</span></div>';
         if (filename)
-            content += '<div class="x-epg-meta"><span class="x-epg-prefix">File Location:</span><span class="x-epg-body">' + filename + '</span></div>';
+            content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('File Location') + ':</span><span class="x-epg-body">' + filename + '</span></div>';
         if (comment)
             content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Comment') + ':</span><span class="x-epg-body">' + comment + '</span></div>';
         if (autorec_caption)
@@ -123,7 +126,7 @@ tvheadend.dvrDetails = function(uuid) {
             uuid: uuid,
             list: 'channel_icon,disp_title,disp_subtitle,episode,start_real,stop_real,' +
                   'duration,disp_description,status,filesize,comment,duplicate,' +
-                  'autorec_caption,timerec_caption,filename'
+                  'autorec_caption,timerec_caption,filename,channelname'
         },
         success: function(d) {
             d = json_decode(d);
