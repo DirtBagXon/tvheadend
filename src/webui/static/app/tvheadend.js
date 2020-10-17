@@ -990,6 +990,30 @@ tvheadend.RootTabPanel = Ext.extend(Ext.TabPanel, {
 
 });
 
+/*
+ * Display chicon only if it exists
+ */
+
+tvheadend.chiconDisplay = function(url, timestamp) {
+
+   var id = "x-epg-chicon-";
+   var tag = id.concat(timestamp);
+   fetch(url, {method: 'HEAD', timeout: 1000})
+   .then(function(response) {
+       if (response.status === 200) {
+           document.getElementById(tag).src=url;
+       } else {
+           var blank = 'static/img/spinner_black_bg.gif';
+           document.getElementById(tag).src=blank;
+       }
+       return;
+    })
+    .catch((error) => {
+        return;
+   });
+};
+
+
 /**
  *
  */

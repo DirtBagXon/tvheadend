@@ -713,6 +713,7 @@
     float: right;
     margin: 5px;
     width: 20%;
+    text-indent: 100vw;
     max-height: 99px;
 }
 

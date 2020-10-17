@@ -2297,8 +2297,8 @@ const idclass_t config_class = {
     {
       .type   = PT_BOOL,
       .id     = "chname_num",
-      .name   = N_("Channel name with numbers"),
-      .desc   = N_("Add channel numbers to the channel name list"),
+      .name   = N_("Channel name with number"),
+      .desc   = N_("Add channel number in the channel name list."),
       .off    = offsetof(config_t, chname_num),
       .group  = 3,
       .def.i  = 1
@@ -2306,8 +2306,8 @@ const idclass_t config_class = {
     {
       .type   = PT_BOOL,
       .id     = "chname_src",
-      .name   = N_("Channel name with sources"),
-      .desc   = N_("Add sources (like DVB-T string) to the channel name list"),
+      .name   = N_("Channel name with source"),
+      .desc   = N_("Add source name (i.e. DVB-T) in the channel name list."),
       .off    = offsetof(config_t, chname_src),
       .group  = 3
     },
