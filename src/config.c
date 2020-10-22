@@ -1681,6 +1681,7 @@ config_boot ( const char *path, gid_t gid, uid_t uid )
   config.theme_ui = strdup("blue");
   config.chname_num = 1;
   config.autorec_wildcard = 0;
+  config.bouquet_loop_fix = 1;
 
   idclass_register(&config_class);
 
@@ -2220,6 +2221,17 @@ const idclass_t config_class = {
                    "duplicated across different sources. This will improve "
                    "series_link and autorec rule searches in this scenario."),
       .off    = offsetof(config_t, autorec_wildcard),
+      .group  = 1
+    },
+    {
+      .type   = PT_BOOL,
+      .id     = "bouquet_loop_fix",
+      .name   = N_("Enable Freesat bouquet parser loop check"),
+      .desc   = N_("This check fixes the 'mpegts: too much queued table input data' "
+                   "issue, but can also block Freesat bouquet discovery. If you have issues "
+                   "with bouquet discovery on new installs: disable this and re-enable once "
+                   "bouquets are found."),
+      .off    = offsetof(config_t, bouquet_loop_fix),
       .group  = 1
     },
     {

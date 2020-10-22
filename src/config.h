@@ -44,6 +44,7 @@ typedef struct config {
   int chname_num;
   int chname_src;
   int autorec_wildcard;
+  int bouquet_loop_fix;
   char *language_ui;
   char *theme_ui;
   char *muxconf_path;
