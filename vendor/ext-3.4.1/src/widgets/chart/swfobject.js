@@ -105,7 +105,7 @@ var swfobject = function() {
         }
         if (!isDomLoaded) {
             if (typeof doc.addEventListener != UNDEF) {
-                doc.addEventListener("DOMContentLoaded", callDomLoadFunctions, false);
+                doc.addEventListener("DOMContentLoaded", callDomLoadFunctions, { capture: false });
             }       
             if (ua.ie && ua.win) {
                 doc.attachEvent(ON_READY_STATE_CHANGE, function() {
@@ -171,10 +171,10 @@ var swfobject = function() {
      */
     function addLoadEvent(fn) {
         if (typeof win.addEventListener != UNDEF) {
-            win.addEventListener("load", fn, false);
+            win.addEventListener("load", fn, { capture: false });
         }
         else if (typeof doc.addEventListener != UNDEF) {
-            doc.addEventListener("load", fn, false);
+            doc.addEventListener("load", fn, { capture: false });
         }
         else if (typeof win.attachEvent != UNDEF) {
             addListener(win, "onload", fn);

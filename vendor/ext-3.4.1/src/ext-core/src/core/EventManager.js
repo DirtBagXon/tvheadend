@@ -195,7 +195,7 @@ Ext.EventManager = function(){
     function initDocReady(){
         docReadyEvent || (docReadyEvent = new Ext.util.Event());
         if (DETECT_NATIVE) {
-            DOC.addEventListener(DOMCONTENTLOADED, fireDocReady, false);
+            DOC.addEventListener(DOMCONTENTLOADED, fireDocReady, { capture: false });
         }
         /*
          * Handle additional (exceptional) detection strategies here
@@ -216,7 +216,7 @@ Ext.EventManager = function(){
 
             //See if page is already loaded and all styleSheets are in place
             (DOC.readyState == COMPLETE && checkStyleSheets()) ||
-                DOC.addEventListener(DOMCONTENTLOADED, OperaDOMContentLoaded, false);
+                DOC.addEventListener(DOMCONTENTLOADED, OperaDOMContentLoaded, { capture: false });
 
         }else if (Ext.isWebKit){
             //Fallback for older Webkits without DOMCONTENTLOADED support

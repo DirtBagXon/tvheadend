@@ -296,10 +296,15 @@ Ext.ux.form.LovCombo = Ext.extend(Ext.ux.form.ComboAny, {
 			if(this.valueField) {
 				this.store.clearFilter();
 				this.store.each(function(r) {
-					var checked = !(!v.match(
-						 '(^|' + this.separator + ')' + RegExp.escape(r.get(this.valueField))
-						+'(' + this.separator + '|$)'))
-					;
+					// sanitize the value
+					var rawValue = r.get(this.valueField);
+					if (rawValue == null) rawValue = '';   // handle null/undefined
+					var valueStr = String(rawValue);       // ensure it's a string
+					var escapedValue = RegExp.escape(valueStr);
+
+					// build regex and test
+					var regex = new RegExp('(^|' + this.separator + ')' + escapedValue + '(' + this.separator + '|$)');
+					var checked = !!v.match(regex);
 
 					r.set(this.checkField, checked);
 				}, this);

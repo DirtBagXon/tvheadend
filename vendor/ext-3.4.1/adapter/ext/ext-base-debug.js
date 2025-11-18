@@ -1879,12 +1879,12 @@ Ext.TaskMgr = new Ext.util.TaskRunner();(function(){
                 ret = function(el, eventName, fn, capture) {
                     if (eventName == 'mouseenter') {
                         fn = fn.createInterceptor(checkRelatedTarget);
-                        el.addEventListener(MOUSEOVER, fn, (capture));
+                        el.addEventListener(MOUSEOVER, fn, { capture }));
                     } else if (eventName == 'mouseleave') {
                         fn = fn.createInterceptor(checkRelatedTarget);
-                        el.addEventListener(MOUSEOUT, fn, (capture));
+                        el.addEventListener(MOUSEOUT, fn, { capture });
                     } else {
-                        el.addEventListener(eventName, fn, (capture));
+                        el.addEventListener(eventName, fn, { capture });
                     }
                     return fn;
                 };
