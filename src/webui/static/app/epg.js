@@ -154,7 +154,44 @@ tvheadend.epgDetails = function(event) {
       content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel Number') + ':</span><span class="x-epg-body">' + event.channelNumber + '</span></div>';
     if (event.channelUuid) {
       var baseUrl = window.location.protocol + '//' + window.location.host;
-      content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel URL') + ':</span>' + '<span class="x-epg-body">' + baseUrl + '/play/stream/channel/' + event.channelUuid + '</span></div>';
+      var streamUrl = baseUrl + '/play/stream/channel/' + event.channelUuid;
+      var urlId = 'streamUrl_' + event.channelUuid;
+      var btnId = 'copyBtn_' + event.channelUuid;
+
+      content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel URL') + ':</span>' + '<span class="x-epg-body" id="' + urlId + '">' + streamUrl + '</span> ' +
+             '<span id="' + btnId + '" role="button" tabindex="0">&#128203;</span>' + '</div>';
+
+      setTimeout(function () {
+        var btn = document.getElementById(btnId);
+        var txt = document.getElementById(urlId);
+
+        if (!btn || !txt) return;
+
+        btn.addEventListener('click', function () {
+          var text = txt.textContent;
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).catch(function(err){
+                console.error('Clipboard write failed', err);
+            });
+          } else {
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try { document.execCommand('copy'); } catch(e){ console.error(e); }
+            document.body.removeChild(textarea);
+          }
+
+          var old = btn.innerHTML;
+          btn.innerHTML = '&#10004;';
+          setTimeout(function(){ btn.innerHTML = old; }, 1000);
+        });
+
+        btn.addEventListener('keydown', function(ev){
+          if (ev.key === 'Enter' || ev.key === ' ') btn.click();
+        });
+      }, 0);
     }
 
     var tags = [];
