@@ -9,8 +9,6 @@ This is an unofficial repo that holds the stable release of TVHeadend 4.2.8 \
 plus minimal stable fixes, and a few backported features, to keep it functional \
 while development appears to have stalled in the official repo.
 
-Repo focused for usage on UK Freeview/Freesat installation.
-
 Use at your own risk.
 
 What it is

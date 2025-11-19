@@ -152,6 +152,10 @@ tvheadend.epgDetails = function(event) {
       content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel Name') + ':</span><span class="x-epg-body">' + event.channelName + '</span></div>';
     if (event.channelNumber)
       content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel Number') + ':</span><span class="x-epg-body">' + event.channelNumber + '</span></div>';
+    if (event.channelUuid) {
+      var baseUrl = window.location.protocol + '//' + window.location.host;
+      content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel URL') + ':</span>' + '<span class="x-epg-body">' + baseUrl + '/play/stream/channel/' + event.channelUuid + '</span></div>';
+    }
 
     var tags = [];
     if (event.hd > 1)
