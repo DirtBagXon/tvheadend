@@ -86,7 +86,7 @@ tvheadend.dvrDetails = function(uuid) {
         var btnId = 'copyBtn_' + uuid;
 
         content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('DVR File URL') + ':</span><span class="x-epg-body" id="' + urlId + '">' + streamUrl + '</span>&nbsp;' +
-		    '<span id="' + btnId + '" role="button" tabindex="0">&#128203;</span></div>';
+                   '<span id="' + btnId + '" role="button" tabindex="0">&#128203;</span></div>';
 
         setTimeout(function () {
           var btn = document.getElementById(btnId);

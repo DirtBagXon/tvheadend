@@ -1,13 +1,12 @@
 Tvheadend
 ========================================
-(c) 2006 - 2020 Tvheadend Foundation CIC
+(c) 2006 - 2025 Tvheadend Foundation CIC
 
 Repo
 ----
 
-This is an unofficial repo that holds the stable release of TVHeadend 4.2.8 \
-plus minimal stable fixes, and a few backported features, to keep it functional \
-while development appears to have stalled in the official repo.
+This is an unofficial repo that holds the old stable release of TVHeadend \
+__*(4.2.8)*__ - Plus some stability fixes and custom backported features.
 
 Use at your own risk.
 
