@@ -79,6 +79,47 @@ tvheadend.dvrDetails = function(uuid) {
             content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Autorec') + ':</span><span class="x-epg-body">' + autorec_caption + '</span></div>';
         if (timerec_caption)
             content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Time Scheduler') + ':</span><span class="x-epg-body">' + timerec_caption + '</span></div>';
+
+        var baseUrl = window.location.protocol + '//' + window.location.host;
+        var streamUrl = baseUrl + '/play/dvrfile/' + uuid;
+        var urlId = 'streamUrl_' + uuid;
+        var btnId = 'copyBtn_' + uuid;
+
+        content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('DVR File URL') + ':</span><span class="x-epg-body" id="' + urlId + '">' + streamUrl + '</span>&nbsp;' +
+		    '<span id="' + btnId + '" role="button" tabindex="0">&#128203;</span></div>';
+
+        setTimeout(function () {
+          var btn = document.getElementById(btnId);
+          var txt = document.getElementById(urlId);
+
+          if (!btn || !txt) return;
+
+          btn.addEventListener('click', function () {
+            var text = txt.textContent;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(text).catch(function(err){
+                  console.error('Clipboard write failed', err);
+              });
+            } else {
+              var textarea = document.createElement('textarea');
+              textarea.value = text;
+              document.body.appendChild(textarea);
+              textarea.select();
+              try { document.execCommand('copy'); } catch(e){ console.error(e); }
+              document.body.removeChild(textarea);
+            }
+
+            var old = btn.innerHTML;
+            btn.innerHTML = '&#10004;';
+            setTimeout(function(){ btn.innerHTML = old; }, 1000);
+          });
+
+          btn.addEventListener('keydown', function(ev){
+            if (ev.key === 'Enter' || ev.key === ' ') btn.click();
+          });
+        }, 0);
+
         if (chicon)
             content += '</div>'; /* x-epg-bottom */
 

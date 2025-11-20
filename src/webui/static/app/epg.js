@@ -158,8 +158,8 @@ tvheadend.epgDetails = function(event) {
       var urlId = 'streamUrl_' + event.channelUuid;
       var btnId = 'copyBtn_' + event.channelUuid;
 
-      content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel URL') + ':</span>' + '<span class="x-epg-body" id="' + urlId + '">' + streamUrl + '</span> ' +
-             '<span id="' + btnId + '" role="button" tabindex="0">&#128203;</span>' + '</div>';
+      content += '<div class="x-epg-meta"><span class="x-epg-prefix">' + _('Channel URL') + ':</span>' + '<span class="x-epg-body" id="' + urlId + '">' + streamUrl + '</span>&nbsp;' +
+                 '<span id="' + btnId + '" role="button" tabindex="0">&#128203;</span></div>';
 
       setTimeout(function () {
         var btn = document.getElementById(btnId);
