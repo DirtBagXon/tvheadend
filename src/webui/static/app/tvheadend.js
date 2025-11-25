@@ -995,24 +995,23 @@ tvheadend.RootTabPanel = Ext.extend(Ext.TabPanel, {
  */
 
 tvheadend.chiconDisplay = function(url, timestamp) {
+   var id = "x-epg-chicon-" + timestamp;
+   var blank = 'static/img/spinner_black_bg.gif';
 
-   var id = "x-epg-chicon-";
-   var tag = id.concat(timestamp);
    fetch(url, {method: 'HEAD', timeout: 1000})
    .then(function(response) {
-       if (response.status === 200) {
-           document.getElementById(tag).src=url;
+       if (response.ok) {
+           document.getElementById(id).src = url;
        } else {
-           var blank = 'static/img/spinner_black_bg.gif';
-           document.getElementById(tag).src=blank;
+           console.warn("Icon not found:", response.status, url);
+           document.getElementById(id).src = blank;
        }
-       return;
-    })
-    .catch((error) => {
-        return;
+   })
+   .catch(function(error) {
+       console.error("Network error checking icon:", error);
+       document.getElementById(id).src = blank;
    });
 };
-
 
 /**
  *

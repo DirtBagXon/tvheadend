@@ -56,15 +56,30 @@ tvheadend.idnode_get_enum = function(conf)
 
 json_decode = function(d)
 {
-    if (d && d.responseText) {
-        d = Ext.util.JSON.decode(d.responseText);
-        if (d.entries)
-            d = d.entries;
-        if (d.nodes)
-            d = d.nodes;
-    } else {
-        d = [];
+    if (!d || !d.responseText) {
+        return [];
     }
+
+    const text = d.responseText;
+
+    const trimmed = text.trim();
+    if (!trimmed.startsWith("{") && !trimmed.startsWith("[")) {
+        console.error("Response is not JSON:", text);
+        return [];
+    }
+
+    try {
+        d = Ext.util.JSON.decode(text);
+    } catch (e) {
+        console.error("Invalid JSON:", e.message, text);
+        return [];
+    }
+
+    if (d.entries)
+        d = d.entries;
+    if (d.nodes)
+        d = d.nodes;
+
     return d;
 };
 
@@ -520,16 +535,14 @@ tvheadend.IdNode = function(conf)
     this.clazz = conf['class'];
     this.text = conf.caption || this.clazz;
     this.event = conf.event;
-    this.props = conf.props;
+    this.props = Array.isArray(conf.props) ? conf.props : [];
     this.order = [];
     this.groups = conf.groups;
     this.fields = [];
     for (var i = 0; i < this.props.length; i++) {
         this.fields.push(new tvheadend.IdNodeField(this.props[i]));
     }
-    var o = [];
-    if (conf.order)
-        o = conf.order.split(',');
+    var o = conf.order && typeof conf.order === 'string' ? conf.order.split(',') : [];
     if (o) {
         while (o.length < this.fields.length)
             o.push(null);
