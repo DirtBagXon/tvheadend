@@ -96,9 +96,7 @@ tvheadend.epgDetails = function(event) {
         duration = (event.stop - event.start) / 1000;
 
     if (event.channelIcon != null && event.channelIcon.length > 0) {
-        var ts = Date.now();
-        content += '<img class="x-epg-chicon" id="x-epg-chicon-' + ts + '" src="">';
-        tvheadend.chiconDisplay(event.channelIcon, ts);
+        content += '<img class="x-epg-chicon" src="' + event.channelIcon + '" onerror="this.src=\'static/img/spinner_black_bg.gif\'">';
         chicon = 1;
     }
 

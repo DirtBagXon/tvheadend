@@ -29,9 +29,7 @@ tvheadend.dvrDetails = function(uuid) {
         var but;
 
         if (chicon != null && chicon.length > 0) {
-            var ts = Date.now();
-            content += '<img class="x-epg-chicon" id="x-epg-chicon-' + ts + '" src="">';
-            tvheadend.chiconDisplay(chicon, ts);
+            content += '<img class="x-epg-chicon" src="' + chicon + '" onerror="this.src=\'static/img/spinner_black_bg.gif\'">';
         } else {
             chicon = null;
         }
